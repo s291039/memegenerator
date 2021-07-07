@@ -1,0 +1,49 @@
+.modal-title {
+	font-weight: 600;
+}
+
+/* */
+.red-color {
+	color: red;
+}
+
+.font-test {
+	font-weight: normal;
+}
+
+.bgimg {
+	/* background-image: url('../Images/image1.jpg'); */
+	background-repeat: no-repeat;
+	border-style: solid;
+	border-width: thin;
+	border-color: #dfe2e6;
+	border-radius: 2%;
+	height: 300px;
+	width: 300px;
+}
+
+/* {image1} */
+.top-right-bottom-right {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-around;
+}
+.top-right-bottom-right > div {
+	height: 20%;
+	width: 45%;
+	text-align: center;
+}
+
+/* {image2} */
+.top-center {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.top-center > div {
+	height: 35%;
+	width: 90%;
+	text-align: center;
+}

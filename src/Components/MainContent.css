@@ -1,0 +1,16 @@
+/* Class for important tasks */
+.important {
+	color: red !important;
+}
+
+.todo-list {
+	margin-top: 15px;
+	padding-left: 0;
+	margin-bottom: 150px;
+}
+
+.text-align-center {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+}

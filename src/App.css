@@ -1,0 +1,51 @@
+/* Global main color */
+:root {
+	--main-color: #007bff;
+}
+
+/* Whole App's page wrapper */
+.page-wrapper {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+}
+
+/* Sidebar and MainContent */
+.main-row {
+	overflow-y: auto;
+	height: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	align-content: flex-start;
+}
+
+/* Sidebar */
+.sticky {
+	position: sticky;
+	top: 0;
+}
+.sidebar {
+	z-index: 10;
+}
+
+/* Scrollbar */
+.scrollbar::-webkit-scrollbar {
+	width: 10px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+	background-color: #c9c9c9;
+	border-radius: 7px;
+}
+.scrollbar::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+/* Cursor style (icons and checkboxes) */
+.cursor-pointer,
+.custom-checkbox > [type='checkbox'] + label {
+	cursor: pointer;
+}
