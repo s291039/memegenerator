@@ -1,0 +1,43 @@
+customCaption {
+    position:relative;
+    bottom: 2rem;
+    margin: 0 2rem;
+    color: white;
+};
+
+
+.fill-window {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    color: black;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #c8ecdc;
+    border-color: #c8ecdc;
+    color: black;
+}
+
+.list-group-item {
+    background-color: #f1f9fb;
+    border-top: 1px solid #0091b5;
+    border-left-color: #fff;
+    border-right-color: #fff;
+  }
+  
+.list-group-item:hover {
+    background-color: #c8ecdc;
+    color: black;
+  }
+
+.list-group-item.active{
+    background-color: #c8ecdc !important;
+    border-color: #c8ecdc;
+    color: black;
+}
