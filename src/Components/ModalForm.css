@@ -1,49 +1,125 @@
+/* Modal title */
 .modal-title {
+	font-size: 175%;
 	font-weight: 600;
+	text-indent: 1.2em;
 }
 
-/* */
-.red-color {
+/* Font (family and size) */
+.font-impact-7 {
+	font-family: Impact;
+	font-size: 7;
+}
+.font-arial-8 {
+	font-family: Arial;
+	font-size: 8;
+}
+.font-georgia-9 {
+	font-family: Georgia;
+	font-size: 9;
+}
+
+/* Font (color) */
+.font-color-black {
+	color: black;
+}
+.font-color-white {
+	color: white;
+}
+.font-color-red {
 	color: red;
 }
 
-.font-test {
-	font-weight: normal;
-}
-
+/* Selected image style (image as background) */
 .bgimg {
-	/* background-image: url('../Images/image1.jpg'); */
+	/* background-image: url(...); */
+	background-size: contain;
 	background-repeat: no-repeat;
 	border-style: solid;
 	border-width: thin;
 	border-color: #dfe2e6;
 	border-radius: 2%;
-	height: 300px;
-	width: 300px;
+	height: 330px;
+	width: 330px;
 }
 
-/* {image1} */
-.top-right-bottom-right {
+/* Text positions (image0: 2 texts) */
+.positions-image0 {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	justify-content: space-around;
 }
-.top-right-bottom-right > div {
-	height: 20%;
+.positions-image0 > div {
+	font-size: 90%;
 	width: 45%;
 	text-align: center;
 }
 
-/* {image2} */
-.top-center {
+/* Text positions (image1; 1 text) */
+.positions-image1 {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 }
-.top-center > div {
-	height: 35%;
+.positions-image1 > div {
+	font-size: 90%;
+	height: 20%;
 	width: 90%;
+	text-align: center;
+}
+
+/* Text positions (image2: 4 texts) */
+.positions-image2 {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-around;
+}
+.positions-image2 > div {
+	font-size: 90%;
+	width: 50%;
+	text-align: center;
+}
+
+/* Text positions (image3: 2 texts) */
+.positions-image3 {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-around;
+}
+.positions-image3 > div {
+	font-size: 90%;
+	width: 45%;
+	text-align: center;
+}
+
+/* Text positions (image4: 3 texts) */
+.positions-image4 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+.positions-image4 > div {
+	font-size: 90%;
+	height: 85%;
+	width: 33%;
+	text-align: center;
+}
+
+/* Text positions (image5: 2 texts) */
+.positions-image5 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+.positions-image5 > div {
+	font-size: 90%;
+	height: 25%;
+	width: 45%;
 	text-align: center;
 }
