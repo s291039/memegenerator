@@ -1,0 +1,18 @@
+
+.list-group-item {
+    background-color: #f1f9fb;
+    border-top: 1px solid #0091b5;
+    border-left-color: #fff;
+    border-right-color: #fff;
+  }
+  
+.list-group-item:hover {
+    background-color: #c8ecdc;
+    color: black;
+  }
+
+.list-group-item.active{
+    background-color: #c8ecdc !important;
+    border-color: #c8ecdc;
+    color: black;
+}

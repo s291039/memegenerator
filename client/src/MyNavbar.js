@@ -7,8 +7,7 @@ import './meme.css';
 
 function MyNavbar(props) {
     return (
-
-        <Navbar style={{ backgroundColor: 'pink' }} expand="lg">
+        <Navbar style={{ backgroundColor: '#003366' }} expand="lg">
             <Col className="d-block d-sm-none px-2" >
                 <Dropdown>
                     <Dropdown.Toggle style={{color: "black" }} id="dropdown-basic">
@@ -23,19 +22,19 @@ function MyNavbar(props) {
                 </Dropdown>
             </Col>
             <Col className="d-flex justify-content-center d-none d-sm-block px-2" style={{ top: '0' }}>
-                <Link to="/main" style={{ color: 'pink' }}>
+                <Link to="/main" style={{ color: '#003366' }}>
 
-                    <Navbar.Brand >MemeGen</Navbar.Brand>
+                    <Navbar.Brand style={{ color: 'white' }} >MemeGen</Navbar.Brand>
                 </Link>
             </Col>
             <Col className="d-flex justify-content-center d-block d-sm-none px-2" style={{ top: '0' }}>
-                <Link to="/main" style={{ color: 'pink' }}>
-                    <Navbar.Brand >MemeGen</Navbar.Brand>
+                <Link to="/main" style={{ color: '#003366' }}>
+                    <Navbar.Brand style={{ color: 'white' }}>MemeGen</Navbar.Brand>
                 </Link>
             </Col>
 
             <Col className="d-flex justify-content-end px-2">
-                <Icons.PersonCircle color="black" size="1.6em" className="mr-1" />
+                <Icons.PersonCircle color="white" size="1.6em" className="mr-1" />
             </Col>
         </Navbar >
 

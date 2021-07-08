@@ -1,5 +1,5 @@
 import { ListGroup } from 'react-bootstrap';
-import './meme.css';
+import './MySidebar.css';
 
 
 function MySidebar(props) {

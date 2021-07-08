@@ -4,7 +4,7 @@ import './App.css';
 import MyNavbar from './MyNavbar'
 import MySidebar from './MySidebar'
 import MainContent from './MainContent'
-import {MyForm, Example} from './MyForm'
+import { MyForm, Example } from './MyForm'
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import * as Icons from 'react-bootstrap-icons';
@@ -23,6 +23,9 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const [show, setShow] = useState(false);
+  const handleShow = (bool) => setShow(bool);
+
   useEffect(() => {
     API.getMemes(activeFilter, setMemes, setLoading);
   }, [activeFilter]);
@@ -39,17 +42,7 @@ function App() {
   return (
     <Router>
       <Switch>
-
-        <Route path='/add' render={() =>
-          <>
-            <MyNavbar />
-            <Container>
-              <MyForm addMeme={addMeme} images={images} />
-            </Container>
-          </>
-
-        } />
-
+        {/* -------- Main ---------- */}
         <Route path='/main' render={() =>
           <>
             <MyNavbar />
@@ -59,15 +52,21 @@ function App() {
               </Col>
               <Col>
                 <MainContent activeFilter={activeFilter} memes={memes} loading={loading} />
-                <MyForm addMeme={addMeme} images={images}/>
+                <MyForm addMeme={addMeme} images={images} handleShow = {handleShow} show = {show}/>
               </Col>
+            </Row>
+            <Row className="d-flex justify-content-end px-4" >
+              <Button variant="primary" style={{ width: "125px", height: "40px"}} onClick = {() => handleShow(!show)}>
+                New Meme
+              </Button>
             </Row>
           </>}
         />
 
+        {/* -------- Root ---------- */}
         <Route path='/' render={() => <>
           <Helmet>
-            <style>{'body { background-color: #083464; }'}</style>
+            <style>{'body { background-color: #003366; }'}</style>
           </Helmet>
           <h1 style={{
             display: "flex",
@@ -107,11 +106,6 @@ function App() {
 
         </Route>
       </Switch>
-      <Row style={{ position: "absolute", bottom: "10px", right: "30px" }}>
-        <Link to='/add'>
-          <Icons.PlusCircle className="mx-2" size="2.6em" />
-        </Link>
-      </Row>
     </Router>
   );
 }

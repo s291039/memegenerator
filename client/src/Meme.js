@@ -1,7 +1,6 @@
 import { Col, Row, Container, Figure, Image } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import * as Icons from 'react-bootstrap-icons';
-import img1 from './images/hermione.jpg';
 import './meme.css';
 
 
@@ -35,19 +34,19 @@ function Meme(props) {
         */}
     return (
         <>
-                <div >
-                    {/*meme*/}
-                    <Row>
-                    </Row>
-                    {/*title*/}
-                    <Row>
-                        {props.title}
-                    </Row>
-                    {/*creator*/}
-                    <Row>
-                        {props.creator}
-                    </Row>
-                </div>
+            <div >
+                {/*meme*/}
+                <Row>
+                </Row>
+                {/*title*/}
+                <Row>
+                    {props.title}
+                </Row>
+                {/*creator*/}
+                <Row>
+                    {props.creator}
+                </Row>
+            </div>
         </>
     )
 }
@@ -72,22 +71,25 @@ function MemeManager(props) {
     return <>
         {props.loading && <span>Loading...</span>}
         {props.memes.map((meme) => {
-            return <Figure as={Col} lg="2" md="3" key = {meme.id} align="center">
-            <Image
-              align="center"
-              width={171}
-              height={180}
-              alt="171x180"
-              src= {img1}
-              thumbnail
-            />
-            <Figure.Caption align="center">
-              {meme.title}
-            </Figure.Caption>
-            <Figure.Caption align="center">
-              {meme.creator}
-            </Figure.Caption>
-          </Figure>
+            return <>
+                    <Figure as={Col} lg="2" md="3" key={meme.id} align="center" key={meme.title}>
+                        <Image
+                            key={meme.title}
+                            align="center"
+                            width={171}
+                            height={180}
+                            alt="171x180"
+                            src={`${process.env.PUBLIC_URL + '/images/' + meme.imgCode + '.jpg'}`}
+                            thumbnail
+                        />
+                        <Figure.Caption align="center">
+                            {meme.title}
+                        </Figure.Caption>
+                        <Figure.Caption align="center">
+                            {meme.creator}
+                        </Figure.Caption>
+                    </Figure>
+            </>
         })}
     </>
 }
@@ -96,16 +98,16 @@ function ImagesManager(props) {
     return <>
         {props.loading && <span>Loading...</span>}
         {props.images.map((img) => {
-            return <Figure as={Col} lg="2" md="3" key = {img} align="center" > 
-            <Image
-              align="center"
-              width={171}
-              height={180}
-              src= {img}
-              thumbnail
-              onClick = {() => props.setImage(img)}
-            />
-          </Figure>
+            return <Figure as={Col} lg="2" md="3" key={img} align="center" >
+                <Image
+                    align="center"
+                    width={171}
+                    height={180}
+                    src={img}
+                    thumbnail
+                    onClick={() => props.setImage(img)}
+                />
+            </Figure>
         })}
     </>
 }
