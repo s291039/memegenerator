@@ -2,6 +2,7 @@ import { Navbar, FormControl, Col, Nav, Dropdown, Container } from 'react-bootst
 import * as Icons from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import './meme.css';
+import './rainbowText.css'
 
 
 
@@ -23,13 +24,13 @@ function MyNavbar(props) {
             </Col>
             <Col className="d-flex justify-content-center d-none d-sm-block px-2" style={{ top: '0' }}>
                 <Link to="/main" style={{ color: '#003366' }}>
-
-                    <Navbar.Brand style={{ color: 'white' }} >MemeGen</Navbar.Brand>
+                    <Navbar.Brand className ="rainbow-text" >
+                        MemeGenerator</Navbar.Brand>
                 </Link>
             </Col>
             <Col className="d-flex justify-content-center d-block d-sm-none px-2" style={{ top: '0' }}>
                 <Link to="/main" style={{ color: '#003366' }}>
-                    <Navbar.Brand style={{ color: 'white' }}>MemeGen</Navbar.Brand>
+                    <Navbar.Brand className ="rainbow-text">MemeGenerator</Navbar.Brand>
                 </Link>
             </Col>
 

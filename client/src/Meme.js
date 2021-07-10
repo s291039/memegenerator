@@ -72,23 +72,66 @@ function MemeManager(props) {
         {props.loading && <span>Loading...</span>}
         {props.memes.map((meme) => {
             return <>
-                    <Figure as={Col} lg="2" md="3" key={meme.id} align="center" key={meme.title}>
-                        <Image
-                            key={meme.title}
-                            align="center"
-                            width={171}
-                            height={180}
-                            alt="171x180"
-                            src={`${process.env.PUBLIC_URL + '/images/' + meme.imgCode + '.jpg'}`}
-                            thumbnail
-                        />
-                        <Figure.Caption align="center">
-                            {meme.title}
-                        </Figure.Caption>
-                        <Figure.Caption align="center">
-                            {meme.creator}
-                        </Figure.Caption>
-                    </Figure>
+                <Figure as={Col} xs = "6" sm = "5" md="4" lg="3" xl = "2"  align="center" key={meme.id}>
+                    {/*className={"background_meme" + `${meme.imgCode}`}*/}
+                    <div
+                        className={"background_meme" + " text_image" + `${meme.imgCode}`}
+                        style={{ backgroundImage: 'url(/images/' + meme.imgCode + '.jpg)' }}
+                        as={Col}
+                        lg="25"
+                        md="25"
+                        align="center"
+                        onClick={() => {
+                            props.handleSelectedPreview(meme);
+                            props.handleFormState('clone');
+                            props.handleShow(true);
+                        }}>
+                        
+                        <div
+                            style={{
+                                color: `${meme.textColor}`,
+                                fontFamily: `${meme.textFont}`,
+                                fontSize: `${(meme.textSize)/2}px`,
+                                textTransform: `${meme.textUppercase}`,
+                                fontWeight: `${meme.textBold}`,
+                                fontStyle: `${meme.textItalic}`
+                            }}>
+                            {meme.text1}
+                        </div>
+                        {meme.text2 == '' ? '' :
+                            <div
+                                style={{
+                                    color: `${meme.textColor}`,
+                                    fontFamily: `${meme.textFont}`,
+                                    fontSize: `${(meme.textSize)/2}px`,
+                                    textTransform: `${meme.textUppercase}`,
+                                    fontWeight: `${meme.textBold}`,
+                                    fontStyle: `${meme.textItalic}`
+                                }}>
+                                {meme.text2}
+                            </div>
+                        }
+                        {meme.text3 == '' ? '' :
+                            <div
+                                style={{
+                                    color: `${meme.textColor}`,
+                                    fontFamily: `${meme.textFont}`,
+                                    fontSize: `${(meme.textSize)/2}px`,
+                                    textTransform: `${meme.textUppercase}`,
+                                    fontWeight: `${meme.textBold}`,
+                                    fontStyle: `${meme.textItalic}`
+                                }}>
+                                {meme.text3}
+                            </div>
+                        }
+                    </div>
+                    <Figure.Caption align="center">
+                        {meme.title}
+                    </Figure.Caption>
+                    <Figure.Caption align="center">
+                        {meme.creator != "" ? meme.creator : "---"}
+                    </Figure.Caption>
+                </Figure>
             </>
         })}
     </>
@@ -97,13 +140,13 @@ function MemeManager(props) {
 function ImagesManager(props) {
     return <>
         {props.loading && <span>Loading...</span>}
-        {props.images.map((img) => {
-            return <Figure as={Col} lg="2" md="3" key={img} align="center" >
+        {props.templates.map((img) => {
+            return <Figure as={Col} lg="2" xs="4" key={img.key} align="center" >
                 <Image
                     align="center"
                     width={171}
                     height={180}
-                    src={img}
+                    src={img.src}
                     thumbnail
                     onClick={() => props.setImage(img)}
                 />

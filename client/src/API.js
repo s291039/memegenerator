@@ -8,13 +8,27 @@ exports.getMemes = async (activeFilter, setMemes, setLoading) => {
     }
 }
 
-
 exports.addMeme = async (meme) => {
     try {
         const response = await fetch('/api/memes', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ title: meme.title, imgCode: meme.imgCode ,is_protected: meme.is_protected, creator: meme.creator, text1: meme.text1, text2: meme.text2, text3: meme.text3, date: meme.date }),
+            body: JSON.stringify({
+                title: meme.title,
+                imgCode: meme.imgCode,
+                is_protected: meme.is_protected,
+                creator: meme.creator,
+                text1: meme.text1,
+                text2: meme.text2,
+                text3: meme.text3,
+                textColor: meme.textColor,
+                textFont: meme.textFont,
+                textSize: meme.textSize,
+                textUppercase: meme.textUppercase,
+                textBold: meme.textBold,
+                textItalic: meme.textItalic,
+                date: meme.date
+            }),
         })
         if (response.ok) {
             console.log(response.json())

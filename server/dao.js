@@ -18,7 +18,7 @@ const dayjs = require('dayjs');
 
 const e = require('express');
 
-let maxID = 0;
+let maxID = 100;
 
 
 const db = new sqlite.Database('meme.db', sqlite.OPEN_READWRITE, (err) => {
@@ -27,16 +27,53 @@ const db = new sqlite.Database('meme.db', sqlite.OPEN_READWRITE, (err) => {
 
 exports.createMeme = (meme) => {
 	return new Promise((resolve, reject) => {
-	  const sql = 'INSERT INTO meme(id, title, is_protected, creator, text1, text2, text3 , date) VALUES(?,?,?,?,?,?,?,?)';
-	  db.run(sql, [maxID+1, meme.title, meme.is_protected, meme.creator, meme.text1, meme.text2, meme.text3, meme.date], function (err) {
-		if (err) {
-		  reject(err);
-		  return;
+		if(maxID==0){
+			this.getAll();
 		}
-		resolve(this.lastID);
-	  });
+		console.log(maxID)
+		const sql = `INSERT INTO meme(
+			id, 
+			imgCode, 
+			title, 
+			is_protected, 
+			creator, 
+			text1, 
+			text2, 
+			text3, 
+			textColor, 
+			textFont, 
+			textSize, 
+			textUppercase, 
+			textBold, 
+			textItalic, 
+			date
+			)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+			
+		db.run(sql, [
+			maxID + 1,
+			meme.imgCode,
+			meme.title,
+			meme.is_protected,
+			meme.creator,
+			meme.text1,
+			meme.text2,
+			meme.text3,
+			meme.textColor,
+			meme.textFont,
+			meme.textSize,
+			meme.textUppercase,
+			meme.textBold,
+			meme.textItalic,
+			meme.date
+		], function (err) {
+			if (err) {
+				reject(err);
+				return;
+			}
+			resolve(this.lastID);
+		});
 	});
-  };
+};
 
 exports.getMeme = (id) => {
 	return new Promise((resolve, reject) => {
@@ -57,7 +94,23 @@ exports.getAll = () => {
 			if (err)
 				reject(err);
 			else {
-				const memes = rows.map(e => ({ id: e.id, title: e.title, is_protected: e.is_protected, creator: e.creator, text1 : e.text1, text2 : e.text2, text3 : e.text3, date: e.date}));
+				const memes = rows.map(e => ({
+					id: e.id,
+					imgCode: e.imgCode,
+					title: e.title,
+					is_protected: e.is_protected,
+					creator: e.creator,
+					text1: e.text1,
+					text2: e.text2,
+					text3: e.text3,
+					date: e.date,
+					textColor: e.textColor,
+					textFont: e.textFont,
+					textSize: e.textSize,
+					textUppercase: e.textUppercase,
+					textBold: e.textBold,
+					textItalic: e.textItalic
+				}));
 				rows.map(m => m.id > maxID ? maxID = m.id : '');
 				resolve(memes);
 			}
@@ -67,28 +120,28 @@ exports.getAll = () => {
 
 exports.getAfterDate = (date) => {
 	return new Promise((resolve, reject) => {
-	  const sql = 'SELECT * FROM memes WHERE date > ?';
-	  db.all(sql, [date.format()], (err, rows) => {
-		if (err)
-		  reject(err);
-		else {
-		const memes = rows.map(e => ({ id: e.id, title: e.title, is_protected: e.is_protected, creator: e.creator, text1 : e.text1, text2 : e.text2, text3 : e.text3, date: e.date}));
-		  resolve(memes);
-		}
-	  });
+		const sql = 'SELECT * FROM memes WHERE date > ?';
+		db.all(sql, [date.format()], (err, rows) => {
+			if (err)
+				reject(err);
+			else {
+				const memes = rows.map(e => ({ id: e.id, imgCode: e.imgCode, title: e.title, is_protected: e.is_protected, creator: e.creator, text1: e.text1, text2: e.text2, text3: e.text3, date: e.date }));
+				resolve(memes);
+			}
+		});
 	});
-  };
- 
-  exports.getWithWord = (word) => {
+};
+
+exports.getWithWord = (word) => {
 	return new Promise((resolve, reject) => {
-	  const sql = "SELECT * FROM memes WHERE title LIKE ?";
-	  db.all(sql, ["%" + word + "%"], (err, rows) => {
-		if (err)
-		  reject(err);
-		else {
-			const memes = rows.map(e => ({ id: e.id, title: e.title, is_protected: e.is_protected, creator: e.creator, text1 : e.text1, text2 : e.text2, text3 : e.text3, date: e.date}));
-			resolve(memes);
-		}
-	  });
+		const sql = "SELECT * FROM memes WHERE title LIKE ?";
+		db.all(sql, ["%" + word + "%"], (err, rows) => {
+			if (err)
+				reject(err);
+			else {
+				const memes = rows.map(e => ({ id: e.id, imgCode: e.imgCode, title: e.title, is_protected: e.is_protected, creator: e.creator, text1: e.text1, text2: e.text2, text3: e.text3, date: e.date }));
+				resolve(memes);
+			}
+		});
 	});
-  };
+};
