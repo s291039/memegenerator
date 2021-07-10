@@ -1,13 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import {
-	BrowserRouter as Router,
-	Route,
-	Switch,
-	Link,
-	Redirect,
-} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Image, Container, Row, Col, Button } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import './App.css';
 
 // Components
@@ -17,6 +11,8 @@ import MainContent from './Components/MainContent';
 import PlusButton from './Components/PlusButton';
 import ModalForm from './Components/ModalForm';
 import Filters from './Components/Filters';
+import LoginForm from './Components/LoginForm';
+
 // Data
 import FAKE_TASKS from './Data/fakeTasks';
 import TaskManager from './Data/TaskManager';
@@ -24,17 +20,70 @@ import TaskManager from './Data/TaskManager';
 const taskManager = new TaskManager();
 taskManager.loadJSON(FAKE_TASKS);
 const filters = Filters.getFilters();
-const defaultFilter = filters[0];
+const default_filter = filters[0];
 
 export default function App() {
 	const [sidebarCollapse, setSidebarCollapse] = useState(false);
+	const [loggedUser, setLoggedUser] = useState(undefined);
+{/*const [toasts, setToasts] = useState(toastManager.getToasts());*/}
+
+	{/*
+	useEffect(() => {
+		getLoggedUser().then((username) => {
+		  setUserName(username);
+		});
+	  }, []);
+	*/}
+
 	return (
 		<Router>
 			<Switch>
 				{/* Redirect to default filter if no filter is specified */}
-				<Redirect exact from="/" to={'/' + defaultFilter.type} />
-				<Redirect from="/add" to={'/' + defaultFilter.type + '/add'} />
-				<Redirect from="/edit" to={'/' + defaultFilter.type + '/edit'} />
+				<Redirect exact from="/" to={'/' + default_filter.type} />
+				<Redirect from="/add" to={'/' + default_filter.type + '/add'} />
+				<Redirect from="/edit" to={'/' + default_filter.type + '/edit'} />
+				<Redirect from="/login" to={'/' + default_filter.type + '/login'} />
+				<Redirect from="/register" to={'/' + default_filter.type + '/register'}
+				/>
+
+				{/* <Route
+					exact path="/logout"
+					render={() => {
+						// no need to logout if not logged in
+						if (!loggedUser) {
+							return <Redirect to="/" />;
+						}
+
+						api.logout().finally(() => {
+							setLoggedUser(undefined);
+						});
+						return <Loading text="Logging out" />;
+					}}
+				/> */}
+
+				<Route
+					exact
+					path='/'
+					render={() =>
+						<div className="App">
+							<Row className="home-row" style={{ marginTop: "30%" }}>
+								<Col md={{ span: 4, offset: 2 }} xs={{ span: 5, offset: 1 }}>
+									<Button className="home-button" variant="dark">
+										Login
+									</Button>
+								</Col>
+								<Col md={{ span: 4 }} xs={{ span: 5 }}>
+								<Link to="/main">
+									<Button className="home-button" variant="dark">
+										Guest
+									</Button>
+									</Link>
+								</Col>
+							</Row>
+						</div>
+					}
+				/>
+				
 				<Route
 					path={'/:filter'}
 					render={({ match }) => {
@@ -60,11 +109,12 @@ export default function App() {
 											path="/:filter/edit"
 											render={({ location }) => {
 												// if there is no specified task to edit
+												// nor the user is logged in
 												// redirect to normal page
-												return location.state ? (
+												return loggedUser && location.state ? (
 													<ModalForm addOrEditTask={taskManager.editTask} />
 												) : (
-													<Redirect to={'/' + matched_filter} />
+													<Redirect to={'/' + matched_filter.type} />
 												);
 											}}
 										/>

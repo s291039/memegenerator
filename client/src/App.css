@@ -1,0 +1,77 @@
+.App {
+	height: 100vh;
+	background-image: url('meme_generator.png');
+	position: fixed;
+	min-width: 100%;
+	min-height: 100%;
+	background-size: cover;
+	background-position: center;
+	text-align: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+/* To xs (576px) */
+@media (max-width: 576px) {
+	.home-button {
+		height: 120%;
+		width: 50%;
+		font-size: 120%;
+	}
+	.home-row {
+		position: relative;
+		top: 35%;
+	}
+}
+/* From sm (576px) to md (768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+	.home-button {
+		height: 120%;
+		width: 45%; /* -5% */
+		font-size: 125%; /* +5% */
+	}
+	.home-row {
+		position: relative;
+		top: 30%; /* -5% */
+	}
+}
+/* From md (768px) to lg (992px) */
+@media (min-width: 768px) and (max-width: 992px) {
+	.home-button {
+		height: 120%;
+		width: 40%; /* -5% */
+		font-size: 130%; /* +5% */
+	}
+	.home-row {
+		position: relative;
+		top: 25%; /* -5% */
+	}
+}
+/* From lg (992px) to xl (1200px) */
+@media (min-width: 992px) and (max-width: 1200px) {
+	.home-button {
+		height: 120%;
+		width: 35%; /* -5% */
+		font-size: 135%; /* +5% */
+	}
+	.home-row {
+		position: relative;
+		top: 20%; /* -5% */
+	}
+}
+/* From xl (1200px) */
+@media (min-width: 1200px) {
+	.home-button {
+		height: 120%;
+		width: 30%; /* -5% */
+		font-size: 140%; /* +5% */
+	}
+	.home-row {
+		position: relative;
+		top: 15%; /* -5% */
+	}
+}
