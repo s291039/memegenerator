@@ -73,7 +73,6 @@ function MemeManager(props) {
         {props.memes.map((meme) => {
             return <>
                 <Figure as={Col} xs = "6" sm = "5" md="4" lg="3" xl = "2"  align="center" key={meme.id}>
-                    {/*className={"background_meme" + `${meme.imgCode}`}*/}
                     <div
                         className={"background_meme" + " text_image" + `${meme.imgCode}`}
                         style={{ backgroundImage: 'url(/images/' + meme.imgCode + '.jpg)' }}

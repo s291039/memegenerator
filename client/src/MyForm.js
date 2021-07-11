@@ -9,9 +9,11 @@ import './meme.css';
 function MyForm(props) {
     const dayjs = require('dayjs');
     const location = useLocation();
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(props.formState == 'create' ? '' : props.selectedPreview.title);
     const [is_protected, setIs_protected] = useState(false);
     const [creator, setCreator] = useState('');
+
+
 
     const [date, setDate] = useState(dayjs().format('MM-DD-YYYY'));
     const [errorMessage, setErrorMessage] = useState('');
@@ -40,7 +42,7 @@ function MyForm(props) {
             is_protected: is_protected,
             creator: creator,
             text1: text1 != "" ? text1 : "",
-            text2:text2 != "" ? text2 : "",
+            text2: text2 != "" ? text2 : "",
             text3: text3 != "" ? text3 : "",
             textColor: textColor,
             textFont: textFont,
@@ -56,16 +58,16 @@ function MyForm(props) {
     };
 
     {/*------------- Text Features Handlers --------------*/ }
-    const [text1, setText1] = useState(location.state ? location.state.meme.text1 : '');
-    const [text2, setText2] = useState(location.state ? location.state.meme.text2 : '');
-    const [text3, setText3] = useState(location.state ? location.state.meme.text3 : '');
+    const [text1, setText1] = useState(props.formState == 'create' ? '' : `${props.selectedPreview.creator}`);
+    const [text2, setText2] = useState('');
+    const [text3, setText3] = useState('');
 
-    const [textColor, setTextColor] = useState(location.state ? location.state.meme.textColor : 'red');
-    const [textFont, setTextFont] = useState(location.state ? location.state.meme.textFont : '');
-    const [textSize, setTextSize] = useState(location.state ? location.state.meme.textSize : '30');
-    const [textUppercase, setTextUpperCase] = useState(location.state ? location.state.meme.textUppercase : '');
-    const [textBold, setTextBold] = useState(location.state ? location.state.meme.textBold : '');
-    const [textItalic, setTextItalic] = useState(location.state ? location.state.meme.textItalic : '');
+    const [textColor, setTextColor] = useState('red');
+    const [textFont, setTextFont] = useState('');
+    const [textSize, setTextSize] = useState('30');
+    const [textUppercase, setTextUpperCase] = useState('');
+    const [textBold, setTextBold] = useState('');
+    const [textItalic, setTextItalic] = useState('');
 
     const handleText1 = (event) => {
         setText1(
@@ -87,16 +89,23 @@ function MyForm(props) {
         setTextColor(
             event.target.value
         );
+        if (props.formState == 'clone')
+            handleEditModeTextColor(true);
     };
     const handleTextFont = (event) => {
         setTextFont(
             event.target.value
         );
+        if (props.formState == 'clone')
+            handleEditModeTextFont(true);
+
     };
     const handleTextSize = (event) => {
         setTextSize(
             event.target.value
         );
+        if (props.formState == 'clone')
+            handleEditModeTextSize(true);
     };
 
     const handleTextUpperCase = () => {
@@ -104,6 +113,8 @@ function MyForm(props) {
             setTextUpperCase('uppercase');
         else
             setTextUpperCase('');
+        if (props.formState == 'clone')
+            handleEditModeTextUppercase(true);
     };
 
     const handleTextBold = () => {
@@ -111,6 +122,8 @@ function MyForm(props) {
             setTextBold('bold');
         else
             setTextBold('');
+        if (props.formState == 'clone')
+            handleEditModeTextBold(true);
     };
 
     const handleTextItalic = () => {
@@ -118,23 +131,69 @@ function MyForm(props) {
             setTextItalic('italic');
         else
             setTextItalic('');
+        if (props.formState == 'clone')
+            handleEditModeTextItalic(true);
     };
 
-    {/*---------------------------------------------------*/ }
+    {/*----------------Edit Mode handlers---------------*/ }
+
+    const [editModeText1, setEditModeText1] = useState(false);
+    const handleEditModeText1 = (bool) => {
+        setEditModeText1(bool);
+    }
+    const [editModeText2, setEditModeText2] = useState(false);
+    const handleEditModeText2 = (bool) => {
+        setEditModeText2(bool);
+    }
+    const [editModeText3, setEditModeText3] = useState(false);
+    const handleEditModeText3 = (bool) => {
+        setEditModeText3(bool);
+    }
+    const [editModeTextColor, setEditModeTextColor] = useState(false);
+    const handleEditModeTextColor = (bool) => {
+        setEditModeTextColor(bool);
+    }
+    const [editModeTextFont, setEditModeTextFont] = useState(false);
+    const handleEditModeTextFont = (bool) => {
+        setEditModeTextFont(bool);
+    }
+    const [editModeTextSize, setEditModeTextSize] = useState(false);
+    const handleEditModeTextSize = (bool) => {
+        setEditModeTextSize(bool);
+    }
+    const [editModeTextUppercase, setEditModeTextUppercase] = useState(false);
+    const handleEditModeTextUppercase = (bool) => {
+        setEditModeTextUppercase(bool);
+    }
+    const [editModeTextBold, setEditModeTextBold] = useState(false);
+    const handleEditModeTextBold = (bool) => {
+        setEditModeTextBold(bool);
+    }
+    const [editModeTextItalic, setEditModeTextItalic] = useState(false);
+    const handleEditModeTextItalic = (bool) => {
+        setEditModeTextItalic(bool);
+    }
+
+    {/*--------------------------------------------------*/ }
 
     const handleClose = () => {
         props.handleShow(false)
         setSelectedTemplate();
-        setText1();
-        setText2();
-        setText3();
+        setText1('');
+        setText2('');
+        setText3('');
         setTextColor('red');
         setTextFont();
-        setTextSize('10');
-        setTextUpperCase();
-        setTextBold();
-        setTextItalic();
+        setTextSize('30');
+        setTextUpperCase('');
+        setTextBold('');
+        setTextItalic('');
+        setEditModeText1(false);
+        setEditModeText2(false);
+        setEditModeText3(false);
     };
+
+
 
     return (
         <>
@@ -223,39 +282,39 @@ function MyForm(props) {
                                                 align="center">
                                                 <div
                                                     style={{
-                                                        color: `${props.selectedPreview.textColor}`,
-                                                        fontFamily: `${props.selectedPreview.textFont}`,
-                                                        fontSize: `${props.selectedPreview.textSize}px`,
-                                                        textTransform: `${props.selectedPreview.textUppercase}`,
-                                                        fontWeight: `${props.selectedPreview.textBold}`,
-                                                        fontStyle: `${props.selectedPreview.textItalic}`
+                                                        color: `${editModeTextColor ? textColor : props.selectedPreview.textColor}`,
+                                                        fontFamily: `${editModeTextFont ? textFont : props.selectedPreview.textFont}`,
+                                                        fontSize: `${editModeTextSize ? textSize : props.selectedPreview.textSize}px`,
+                                                        textTransform: `${editModeTextUppercase ? textUppercase : props.selectedPreview.textUppercase}`,
+                                                        fontWeight: `${editModeTextBold ? textBold : props.selectedPreview.textBold}`,
+                                                        fontStyle: `${editModeTextItalic ? textItalic : props.selectedPreview.textItalic}`
                                                     }}>
-                                                    {props.selectedPreview.text1}
+                                                    {editModeText1 ? text1 : props.selectedPreview.text1}
                                                 </div>
                                                 {props.selectedPreview.text2 == '' ? '' :
                                                     <div
                                                         style={{
-                                                            color: `${props.selectedPreview.textColor}`,
-                                                            fontFamily: `${props.selectedPreview.textFont}`,
-                                                            fontSize: `${props.selectedPreview.textSize}px`,
-                                                            textTransform: `${props.selectedPreview.textUppercase}`,
-                                                            fontWeight: `${props.selectedPreview.textBold}`,
-                                                            fontStyle: `${props.selectedPreview.textItalic}`
+                                                            color: `${editModeTextColor ? textColor : props.selectedPreview.textColor}`,
+                                                            fontFamily: `${editModeTextFont ? textFont : props.selectedPreview.textFont}`,
+                                                            fontSize: `${editModeTextSize ? textSize : props.selectedPreview.textSize}px`,
+                                                            textTransform: `${editModeTextUppercase ? textUppercase : props.selectedPreview.textUppercase}`,
+                                                            fontWeight: `${editModeTextBold ? textBold : props.selectedPreview.textBold}`,
+                                                            fontStyle: `${editModeTextItalic ? textItalic : props.selectedPreview.textItalic}`
                                                         }}>
-                                                        {props.selectedPreview.text2}
+                                                        {editModeText2 ? text2 : props.selectedPreview.text2}
                                                     </div>
                                                 }
                                                 {props.selectedPreview.text3 == '' ? '' :
                                                     <div
                                                         style={{
-                                                            color: `${props.selectedPreview.textColor}`,
-                                                            fontFamily: `${props.selectedPreview.textFont}`,
-                                                            fontSize: `${props.selectedPreview.textSize}px`,
-                                                            textTransform: `${props.selectedPreview.textUppercase}`,
-                                                            fontWeight: `${props.selectedPreview.textBold}`,
-                                                            fontStyle: `${props.selectedPreview.textItalic}`
+                                                            color: `${editModeTextColor ? textColor : props.selectedPreview.textColor}`,
+                                                            fontFamily: `${editModeTextFont ? textFont : props.selectedPreview.textFont}`,
+                                                            fontSize: `${editModeTextSize ? textSize : props.selectedPreview.textSize}px`,
+                                                            textTransform: `${editModeTextUppercase ? textUppercase : props.selectedPreview.textUppercase}`,
+                                                            fontWeight: `${editModeTextBold ? textBold : props.selectedPreview.textBold}`,
+                                                            fontStyle: `${editModeTextItalic ? textItalic : props.selectedPreview.textItalic}`
                                                         }}>
-                                                        {props.selectedPreview.text3}
+                                                        {editModeText3 ? text3 : props.selectedPreview.text3}
                                                     </div>
                                                 }
                                             </div>
@@ -274,9 +333,14 @@ function MyForm(props) {
                                         <Form.Label>Text1</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            placeholder={props.formState == 'create' ? "Text#1" : props.selectedPreview.text1}
-                                            onChange={(ev) => handleText1(ev)}
-                                            key="text1-input" />
+                                            placeholder="Text#1"
+                                            onChange={(ev) => {
+                                                handleText1(ev)
+                                                if (props.formState == 'clone')
+                                                    handleEditModeText1(true);
+                                            }}
+                                            key="text1-input"
+                                        />
                                     </Form.Group>
                                 </Row>
                                 <br />
@@ -291,7 +355,15 @@ function MyForm(props) {
                                             </> :
                                             <>
                                                 <Form.Label>Text2</Form.Label>
-                                                <Form.Control type="text" placeholder="Text#2" onChange={(ev) => handleText2(ev)} key="text2-input1" />
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Text#2"
+                                                    onChange={(ev) => {
+                                                        handleText2(ev)
+                                                        if (props.formState == 'clone')
+                                                            handleEditModeText2(true);
+                                                    }}
+                                                    key="text2-input1" />
                                             </>
                                         }
 
@@ -311,18 +383,30 @@ function MyForm(props) {
                                             </> :
                                             <>
                                                 <Form.Label>Text3</Form.Label>
-                                                <Form.Control type="text" placeholder="Text#3" onChange={(ev) => handleText3(ev)} key="text3-input2" />
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Text#3"
+                                                    onChange={(ev) => {
+                                                        handleText3(ev)
+                                                        if (props.formState == 'clone')
+                                                            handleEditModeText3(true);
+                                                    }}
+                                                    key="text3-input2" />
                                             </>
                                         }
                                     </Form.Group>
                                 </Row>
                                 <br />
 
+
                                 <Row>
                                     <Col>
+                                        {/*#TODO*/}
                                         <Form.Group controlId="ControlSelect1">
                                             <Form.Label>Font</Form.Label>
-                                            <Form.Control as="select" onChange={handleTextFont.bind(this)}>
+                                            <Form.Control
+                                                as="select"
+                                                onChange={handleTextFont.bind(this)}>
                                                 <option style={{ fontFamily: 'Arial' }} key="font-arial">Arial</option>
                                                 <option style={{ fontFamily: 'Rajdhani' }} key="font-rajdhani">Rajdhani</option>
                                                 <option style={{ fontFamily: 'Helvetica' }} key="font-helvetica">Helvetica</option>
@@ -420,10 +504,10 @@ function MyForm(props) {
                         <Col>
                             <Form.Group controlId="description">
                                 <Form.Label>Meme title</Form.Label>
-                                <Form.Control 
-                                type="text" 
-                                placeholder="Enter title" 
-                                onChange={handleTitle}
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter title"
+                                    onChange={handleTitle}
                                 />
                             </Form.Group>
                         </Col>

@@ -18,7 +18,7 @@ const dayjs = require('dayjs');
 
 const e = require('express');
 
-let maxID = 100;
+let maxID = 0;
 
 
 const db = new sqlite.Database('meme.db', sqlite.OPEN_READWRITE, (err) => {

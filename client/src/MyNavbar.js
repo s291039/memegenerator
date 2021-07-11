@@ -23,14 +23,14 @@ function MyNavbar(props) {
                 </Dropdown>
             </Col>
             <Col className="d-flex justify-content-center d-none d-sm-block px-2" style={{ top: '0' }}>
-                <Link to="/main" style={{ color: '#003366' }}>
-                    <Navbar.Brand className ="rainbow-text" >
-                        MemeGenerator</Navbar.Brand>
+                <Link to="/main" style={{ color: '#003366'  }}>
+                    <Navbar.Brand className ="rainbow-text" style = {{fontFamily: 'Luckiest Guy'}} >
+                        Meme_Generator</Navbar.Brand>
                 </Link>
             </Col>
             <Col className="d-flex justify-content-center d-block d-sm-none px-2" style={{ top: '0' }}>
                 <Link to="/main" style={{ color: '#003366' }}>
-                    <Navbar.Brand className ="rainbow-text">MemeGenerator</Navbar.Brand>
+                    <Navbar.Brand className ="rainbow-text" style = {{fontFamily: 'Luckiest Guy'}}>Meme_Generator</Navbar.Brand>
                 </Link>
             </Col>
 

@@ -21,21 +21,17 @@
     height: 380px;
 }
 
-/* {image1} */
+
 .text_image1 {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
-	justify-content: space-around;
+	align-items: center;
+	justify-content: space-between;
 }
 .text_image1 > div {
-	height: 80%;
-	width: 59%;
-	text-align: left;
-    max-width: 59%;
-    text-overflow: ellipsis;
-    padding-right: 30%;
-    padding-bottom: 70%;
+	height: 30%;
+	width: 80%;
+	text-align: center;
 }
 
 

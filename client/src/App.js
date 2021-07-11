@@ -16,6 +16,7 @@ import Objects from './images'
 
 
 
+
 function App() {
 
   const [formState, setFormState] = useState('create');
@@ -59,6 +60,7 @@ function App() {
   return (
     <Router>
       <Switch>
+
         {/* -------- Main ---------- */}
         <Route path='/main' render={() =>
           <>
@@ -100,19 +102,22 @@ function App() {
             </Row>
           </>}
         />
+
         {/* -------- Root ---------- */}
         <Route path='/' render={() => <>
           <Helmet>
             <style>{'body { background-color: #003366; }'}</style>
           </Helmet>
+          <div className= "mt-5">
           <h1 className="rainbow-text"
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: 300,
               fontSize: "70px",
-            }}> MEME GENERATOR</h1>
+              fontFamily: 'Luckiest Guy',
+            }}
+            > Meme Generator</h1>
           <Row>
             <Col className="d-flex justify-content-end">
               <Button
@@ -137,6 +142,7 @@ function App() {
             <Row>
               <Image src='https://media.giphy.com/media/VGuAZNdkPUpEY/giphy.gif' />
             </Row>
+          </div>
           </div>
         </>}>
         </Route>
