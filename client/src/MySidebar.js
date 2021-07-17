@@ -9,7 +9,7 @@ function MySidebar(props) {
             <ListGroup.Item onClick={() => props.setFilter("All")} active={props.activeFilter === "All" ? true : false}>All</ListGroup.Item>
             <ListGroup.Item onClick={() => props.setFilter("Today")} active={props.activeFilter === "Today" ? true : false}>Today</ListGroup.Item>
             <ListGroup.Item onClick={() => props.setFilter("Last 7 days")} active={props.activeFilter === "Last 7 days" ? true : false}>Last 7 days</ListGroup.Item>
-            {props.logged && <ListGroup.Item onClick={() => props.setFilter("My Memes")} active={props.activeFilter === "My Memes" ? true : false}>My Memes</ListGroup.Item>}
+            {props.user != null && <ListGroup.Item onClick={() => props.setFilter("My Memes")} active={props.activeFilter === "My Memes" ? true : false}>My Memes</ListGroup.Item>}
         </ListGroup>
     );
 }

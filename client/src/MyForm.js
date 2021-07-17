@@ -34,28 +34,6 @@ function MyForm(props) {
         );
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const meme = {
-            title: title,
-            imgCode: selectedTemplate.key,
-            is_protected: is_protected,
-            creator: creator,
-            text1: text1 != "" ? text1 : "",
-            text2: text2 != "" ? text2 : "",
-            text3: text3 != "" ? text3 : "",
-            textColor: textColor,
-            textFont: textFont,
-            textSize: textSize,
-            textUppercase: textUppercase != "" ? textUppercase : "",
-            textBold: textBold != "" ? textBold : "",
-            textItalic: textItalic != "" ? textItalic : "",
-            date: dayjs(date).format("MM/DD/YYYY"),
-        };
-        props.addMeme(meme);
-        setSubmitted(true);
-        handleClose();
-    };
 
     {/*------------- Text Features Handlers --------------*/ }
     const [text1, setText1] = useState(props.formState == 'create' ? '' : `${props.selectedPreview.creator}`);
@@ -65,7 +43,7 @@ function MyForm(props) {
     const [textColor, setTextColor] = useState('red');
     const [textFont, setTextFont] = useState('');
     const [textSize, setTextSize] = useState('30');
-    const [textUppercase, setTextUpperCase] = useState('');
+    const [textUppercase, setTextUppercase] = useState('');
     const [textBold, setTextBold] = useState('');
     const [textItalic, setTextItalic] = useState('');
 
@@ -108,11 +86,11 @@ function MyForm(props) {
             handleEditModeTextSize(true);
     };
 
-    const handleTextUpperCase = () => {
+    const handleTextUppercase = () => {
         if (textUppercase == '')
-            setTextUpperCase('uppercase');
+            setTextUppercase('uppercase');
         else
-            setTextUpperCase('');
+            setTextUppercase('');
         if (props.formState == 'clone')
             handleEditModeTextUppercase(true);
     };
@@ -176,24 +154,72 @@ function MyForm(props) {
 
     {/*--------------------------------------------------*/ }
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setErrorMessage('');
+        if (title == '') {
+            setErrorMessage('Title cannot be empty!')
+            console.log('error');
+            return;
+        }
+        if(selectedTemplate == null){
+            setErrorMessage('You should select a template!')
+            console.log('error');
+            return;
+        }
+        if(text1 == '' && text2 == '' && text3 == ''){
+            setErrorMessage('You should fill at least one text field!')
+            console.log('error');
+            return;
+        }
+
+        const meme = {
+            title: title,
+            imgCode: selectedTemplate.key,
+            is_protected: is_protected,
+            creator: creator,
+            text1: text1 != "" ? text1 : "",
+            text2: text2 != "" ? text2 : "",
+            text3: text3 != "" ? text3 : "",
+            textColor: textColor,
+            textFont: textFont,
+            textSize: textSize,
+            textUppercase: textUppercase != "" ? textUppercase : "",
+            textBold: textBold != "" ? textBold : "",
+            textItalic: textItalic != "" ? textItalic : "",
+            date: dayjs(date).format("MM/DD/YYYY"),
+        };
+        props.addMeme(meme);
+        setSubmitted(true);
+        handleClose();
+    };
+
     const handleClose = () => {
-        props.handleShow(false)
+        props.handleShow(false);
+        setErrorMessage('');
         setSelectedTemplate();
+        setTitle('');
         setText1('');
         setText2('');
         setText3('');
         setTextColor('red');
         setTextFont();
         setTextSize('30');
-        setTextUpperCase('');
+        setTextUppercase('');
         setTextBold('');
         setTextItalic('');
         setEditModeText1(false);
         setEditModeText2(false);
         setEditModeText3(false);
+        setEditModeTextColor(false);
+        setEditModeTextFont(false);
+        setEditModeTextSize(false);
+        setEditModeTextUppercase(false);
+        setEditModeTextBold(false);
+        setEditModeTextItalic(false);
     };
 
-
+    {/*--------------------------------------------------*/ }
 
     return (
         <>
@@ -486,7 +512,7 @@ function MyForm(props) {
                                             <Row >
                                                 <Col>
                                                     <Form.Check
-                                                        onChange={handleTextUpperCase}
+                                                        onChange={handleTextUppercase}
                                                         type="checkbox"
                                                         label="UPPERCASE"
                                                     />
@@ -515,12 +541,15 @@ function MyForm(props) {
                             <Form.Group id="formGridCheckbox" style={{ marginTop: '5%' }}>
                                 <Row >
                                     <Col >
+                                        { props.user != null ? <>
                                         <Form.Check
                                             type="checkbox"
                                             label="Set as protected"
                                             checked={is_protected}
                                             onChange={() => setIs_protected((isp) => !isp)}
                                         />
+                                        <h5 style={{fontSize: 14}}> *keep your meme for yourself (you need to be logged) </h5>
+                                        </> : ''}
                                     </Col>
                                 </Row>
                             </Form.Group>

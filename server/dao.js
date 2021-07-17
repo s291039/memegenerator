@@ -1,17 +1,5 @@
 'use strict';
 
-/* 
-CREATE TABLE memes (
-	id          INTEGER  PRIMARY KEY,
-	title TEXT     NOT NULL,
-	is_protected      BOOLEAN  DEFAULT (0) NOT NULL,
-	creator     BOOLEAN  DEFAULT (1) NOT NULL,
-	text1 	 TEXT    ,
-	text2	 TEXT     ,
-	text3	 TEXT     ,
-	date    DATETIME
-);
-*/
 
 const sqlite = require('sqlite3');
 const dayjs = require('dayjs');
@@ -20,10 +8,7 @@ const e = require('express');
 
 let maxID = 0;
 
-
-const db = new sqlite.Database('meme.db', sqlite.OPEN_READWRITE, (err) => {
-	if (err) throw err;
-});
+const db = require('./db');
 
 exports.createMeme = (meme) => {
 	return new Promise((resolve, reject) => {
@@ -118,30 +103,3 @@ exports.getAll = () => {
 	});
 };
 
-exports.getAfterDate = (date) => {
-	return new Promise((resolve, reject) => {
-		const sql = 'SELECT * FROM memes WHERE date > ?';
-		db.all(sql, [date.format()], (err, rows) => {
-			if (err)
-				reject(err);
-			else {
-				const memes = rows.map(e => ({ id: e.id, imgCode: e.imgCode, title: e.title, is_protected: e.is_protected, creator: e.creator, text1: e.text1, text2: e.text2, text3: e.text3, date: e.date }));
-				resolve(memes);
-			}
-		});
-	});
-};
-
-exports.getWithWord = (word) => {
-	return new Promise((resolve, reject) => {
-		const sql = "SELECT * FROM memes WHERE title LIKE ?";
-		db.all(sql, ["%" + word + "%"], (err, rows) => {
-			if (err)
-				reject(err);
-			else {
-				const memes = rows.map(e => ({ id: e.id, imgCode: e.imgCode, title: e.title, is_protected: e.is_protected, creator: e.creator, text1: e.text1, text2: e.text2, text3: e.text3, date: e.date }));
-				resolve(memes);
-			}
-		});
-	});
-};

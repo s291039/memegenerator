@@ -1,4 +1,4 @@
-import { Navbar, FormControl, Col, Nav, Dropdown, Container } from 'react-bootstrap';
+import { Navbar, FormControl, Col, Nav, Dropdown, DropdownButton, ButtonGroup, Container, Button } from 'react-bootstrap';
 import * as Icons from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import './meme.css';
@@ -11,8 +11,8 @@ function MyNavbar(props) {
         <Navbar style={{ backgroundColor: '#003366' }} expand="lg">
             <Col className="d-block d-sm-none px-2" >
                 <Dropdown>
-                    <Dropdown.Toggle style={{color: "black" }} id="dropdown-basic">
-                        <Icons.ThreeDotsVertical  size="1.3em" />
+                    <Dropdown.Toggle style={{ color: "black" }} id="dropdown-basic">
+                        <Icons.ThreeDotsVertical size="1.3em" />
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
@@ -23,19 +23,51 @@ function MyNavbar(props) {
                 </Dropdown>
             </Col>
             <Col className="d-flex justify-content-center d-none d-sm-block px-2" style={{ top: '0' }}>
-                <Link to="/main" style={{ color: '#003366'  }}>
-                    <Navbar.Brand className ="rainbow-text" style = {{fontFamily: 'Luckiest Guy'}} >
+                <Link to="/main" style={{ color: '#003366' }}>
+                    <Navbar.Brand className="rainbow-text" style={{ fontFamily: 'Luckiest Guy' }} >
                         Meme_Generator</Navbar.Brand>
                 </Link>
             </Col>
             <Col className="d-flex justify-content-center d-block d-sm-none px-2" style={{ top: '0' }}>
                 <Link to="/main" style={{ color: '#003366' }}>
-                    <Navbar.Brand className ="rainbow-text" style = {{fontFamily: 'Luckiest Guy'}}>Meme_Generator</Navbar.Brand>
+                    <Navbar.Brand className="rainbow-text" style={{ fontFamily: 'Luckiest Guy' }}>Meme_Generator</Navbar.Brand>
                 </Link>
             </Col>
 
             <Col className="d-flex justify-content-end px-2">
-                <Icons.PersonCircle color="white" size="1.6em" className="mr-1" />
+                <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+                    {props.user != null ?
+                        <>
+                            <Dropdown.Header style={{ fontSize: 14 }}> {props.user} </Dropdown.Header>
+
+                        </> :
+                        <>
+                            <Dropdown.Header style={{ fontSize: 14 }}>Login to save your meme</Dropdown.Header>
+                        </>}
+
+
+                    <Dropdown.Divider />
+                    {props.user != null ?
+                        <>
+                            <Dropdown.Item eventKey="4" style={{ fontSize: 14, color: 'red' }}
+                            onClick = {() => {
+                                props.setUser(null);
+                            }}
+                            >Logout
+                            </Dropdown.Item>
+
+                        </> :
+                        <>
+                            <Dropdown.Item 
+                            eventKey="4" 
+                            style={{ fontSize: 14, color: 'blue' }}
+                            onClick = {() => props.handleShowLoginForm(true)}
+                            >Login</Dropdown.Item>
+                        </>}
+
+
+                </DropdownButton>
+
             </Col>
         </Navbar >
 
